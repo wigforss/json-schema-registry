@@ -3,7 +3,9 @@
 ![](https://img.shields.io/badge/Package-JAR-2396ad)
 ![](https://img.shields.io/badge/Repository-Maven%20Central-2396ad)  
 ![](https://img.shields.io/badge/Java-8%2B-d6a827)
-![](https://github.com/wigforss/ka-commons-reflection/workflows/Test%20and%20Deploy/badge.svg) 
+![](https://github.com/wigforss/json-schema-registry/workflows/Test%20and%20Deploy/badge.svg) 
+[![codecov](https://codecov.io/gh/wigforss/json-schema-registry/branch/master/graph/badge.svg)](https://codecov.io/gh/wigforss/json-schema-registry)
+
 
 Auto discovery of java classes annotated with ```@JsonSchema```, which are placed into a JsonSchemaRegistry.
 
