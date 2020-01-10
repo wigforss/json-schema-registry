@@ -20,9 +20,9 @@ public interface JsonSchemaRegistry {
     /**
      * Returns a map of all versions of all schemas per schema name.
      *
-     * {@code
-     * MapSchema Name, Map<Schema version, JsonSchemaRegistration>>
-     *}
+     * The key of the returned map is schema name and the key of each value is version.
+     *
+     * @return Map of all versions of all schemas per schema name.
      **/
     Map<String, Map<String, JsonSchemaRegistration>> getRegisteredSchemas();
 }
