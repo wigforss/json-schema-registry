@@ -20,7 +20,7 @@ import org.kasource.json.schema.registry.JsonSchemaRegistryFactory;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class JsonSchemaDiscovererTest {
+public class JsonSchemaScannerTest {
     @Mock
     private ObjectMapper objectMapper;
 
@@ -40,7 +40,7 @@ public class JsonSchemaDiscovererTest {
     private String additionalBasePackage = "additionalPackage";
 
     @InjectMocks
-    private JsonSchemaDiscoverer discoverer = new JsonSchemaDiscoverer(objectMapper);
+    private JsonSchemaScanner schemaScanner = new JsonSchemaScanner(objectMapper);
 
     @Test
     public void discoverSchemas() {
@@ -51,7 +51,7 @@ public class JsonSchemaDiscovererTest {
         when(scanner.findCandidateComponents(basePackage)).thenReturn(new SetBuilder<BeanDefinition>().add(beanDefinition).build());
         when(beanDefinition.getBeanClassName()).thenReturn(serDeClass.getName());
 
-        discoverer.discoverSchemas(basePackage, additionalBasePackage);
+        schemaScanner.scan(basePackage, additionalBasePackage);
 
         verify(scanner, times(1)).findCandidateComponents(basePackage);
         verify(scanner, times(1)).findCandidateComponents(additionalBasePackage);
@@ -68,7 +68,7 @@ public class JsonSchemaDiscovererTest {
 
         when(beanDefinition.getBeanClassName()).thenReturn(badClass);
 
-        discoverer.discoverSchemas(basePackage);
+        schemaScanner.scan(basePackage);
 
         verify(scanner, times(1)).findCandidateComponents(basePackage);
         verifyZeroInteractions(repository);

@@ -54,7 +54,7 @@ The JSON schema itself which resides on the classpath at the location specified 
 ```
 And to get the Registry
 ```
-public JsonRegistry createRegistry(ObjectMapper objectMapper, String packageToScan) {
-    return new JsonSchemaDiscoverer(objectMapper).discoverSchemas(packageToScan);
+public JsonSchemaRegistry createRegistry(ObjectMapper objectMapper, String packageToScan) {
+    return new JsonSchemaScanner(objectMapper).scan(packageToScan);
 }
 ```

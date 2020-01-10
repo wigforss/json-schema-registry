@@ -15,24 +15,24 @@ import org.kasource.json.schema.registry.JsonSchemaRegistryFactory;
 import org.kasource.json.schema.registry.JsonSchemaRegistryFactoryImpl;
 
 
-public class JsonSchemaDiscoverer {
+public class JsonSchemaScanner {
 
     private ClassPathScanningCandidateComponentProvider scanner =
             new ClassPathScanningCandidateComponentProvider(false);
     private JsonSchemaRegistryFactory repositoryFactory;
 
-    public JsonSchemaDiscoverer(final ObjectMapper objectMapper) {
+    public JsonSchemaScanner(final ObjectMapper objectMapper) {
         this(objectMapper, false);
     }
 
-    public JsonSchemaDiscoverer(final ObjectMapper objectMapper,
-                                final boolean considerMetaAnnotations) {
+    public JsonSchemaScanner(final ObjectMapper objectMapper,
+                             final boolean considerMetaAnnotations) {
         this.repositoryFactory = new JsonSchemaRegistryFactoryImpl(objectMapper);
         scanner.addIncludeFilter(new AnnotationTypeFilter(JsonSchema.class, considerMetaAnnotations));
     }
 
-    public JsonSchemaRegistry discoverSchemas(String basePackage,
-                                              String... additionalBasePackage) {
+    public JsonSchemaRegistry scan(String basePackage,
+                                   String... additionalBasePackage) {
         JsonSchemaRegistry repo = repositoryFactory.create();
         List<String> packageList = new ArrayList<>(Arrays.asList(additionalBasePackage));
         packageList.add(basePackage);

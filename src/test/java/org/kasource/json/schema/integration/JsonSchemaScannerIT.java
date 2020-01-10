@@ -6,16 +6,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import org.kasource.json.schema.JsonSchemaDiscoverer;
+import org.kasource.json.schema.JsonSchemaScanner;
 import org.kasource.json.schema.registry.JsonSchemaRegistration;
 import org.kasource.json.schema.registry.JsonSchemaRegistry;
 
-public class JsonSchemaDiscovererIT {
+public class JsonSchemaScannerIT {
 
     @Test
     public void findAnnotationsConsiderMetaAnnotation() {
-        JsonSchemaDiscoverer discoverer = new JsonSchemaDiscoverer(new ObjectMapper(), true);
-        JsonSchemaRegistry repo = discoverer.discoverSchemas("org.kasource.json.schema.integration");
+        JsonSchemaScanner discoverer = new JsonSchemaScanner(new ObjectMapper(), true);
+        JsonSchemaRegistry repo = discoverer.scan("org.kasource.json.schema.integration");
         Optional<JsonSchemaRegistration> registration = repo.getSchemaRegistration("some", "1.0");
 
         assertTrue(registration.isPresent());
@@ -30,8 +30,8 @@ public class JsonSchemaDiscovererIT {
 
     @Test
     public void findAnnotations() {
-        JsonSchemaDiscoverer discoverer = new JsonSchemaDiscoverer(new ObjectMapper());
-        JsonSchemaRegistry repo = discoverer.discoverSchemas("org.kasource.json.schema.integration");
+        JsonSchemaScanner discoverer = new JsonSchemaScanner(new ObjectMapper());
+        JsonSchemaRegistry repo = discoverer.scan("org.kasource.json.schema.integration");
         Optional<JsonSchemaRegistration> registration = repo.getSchemaRegistration("some", "1.0");
 
         assertTrue(registration.isPresent());
