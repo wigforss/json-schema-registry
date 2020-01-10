@@ -24,22 +24,24 @@ public class JsonSchemaStringValidatorImpl extends AbstractJsonValidator
 
 
     public JsonSchemaStringValidatorImpl() {
+        super();
         this.objectMapper = new ObjectMapper();
     }
 
     public JsonSchemaStringValidatorImpl(final ObjectMapper objectMapper) {
+        super();
         this.objectMapper = objectMapper;
     }
 
     @Override
     public void validate(String json) {
         try {
-            ProcessingReport processingReport = isJsonValid(objectMapper.readTree(json));
+            ProcessingReport processingReport = validationReport(objectMapper.readTree(json));
             if (!processingReport.isSuccess()) {
                 throw new InvalidJsonException(processingReport, json + " " + toErrorMessage(processingReport));
             }
         } catch (IOException e) {
-            throw new IllegalArgumentException("String is not valid JSON");
+            throw new IllegalArgumentException("String is not valid JSON", e);
         }
     }
 
@@ -47,7 +49,7 @@ public class JsonSchemaStringValidatorImpl extends AbstractJsonValidator
     public final boolean isValid(final String value,
                                  final ConstraintValidatorContext context) {
         try {
-            ProcessingReport processingReport = isJsonValid(objectMapper.readTree(value));
+            ProcessingReport processingReport = validationReport(objectMapper.readTree(value));
             boolean success = processingReport.isSuccess();
             if (!success) {
                 setErrorConstraint(processingReport, context);

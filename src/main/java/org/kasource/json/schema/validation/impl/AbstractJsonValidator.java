@@ -20,6 +20,7 @@ import org.kasource.json.schema.validation.ValidJson;
 
 public class AbstractJsonValidator {
 
+    public static final char CLASSPATH_PREFIX  = '/';
     private String name;
     private String version;
     private JsonSchema jsonSchema;
@@ -53,14 +54,14 @@ public class AbstractJsonValidator {
     }
 
     private JsonNode loadSchemaFrom(String location) throws IOException, URISyntaxException {
-        if (location.startsWith("/")) {
+        if (location.charAt(0) == CLASSPATH_PREFIX) {
             return JsonLoader.fromResource(location);
         } else {
             return JsonLoader.fromURL(new URI(location).toURL());
         }
     }
 
-    protected ProcessingReport isJsonValid(JsonNode jsonNode) {
+    protected ProcessingReport validationReport(JsonNode jsonNode) {
         try {
             return jsonSchema.validate(jsonNode);
         } catch (ProcessingException e) {

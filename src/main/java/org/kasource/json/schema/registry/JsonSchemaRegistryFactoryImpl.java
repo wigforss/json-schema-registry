@@ -11,6 +11,7 @@ public class JsonSchemaRegistryFactoryImpl implements JsonSchemaRegistryFactory 
         this.objectMapper = objectMapper;
     }
 
+    @Override
     public JsonSchemaRegistry create() {
         return new JsonSchemaRegistryImpl(objectMapper);
     }

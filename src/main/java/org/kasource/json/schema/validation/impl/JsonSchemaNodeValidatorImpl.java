@@ -23,7 +23,7 @@ public class JsonSchemaNodeValidatorImpl extends AbstractJsonValidator
 
     @Override
     public void validate(JsonNode node) {
-        ProcessingReport processingReport = isJsonValid(node);
+        ProcessingReport processingReport = this.validationReport(node);
         if (!processingReport.isSuccess()) {
             throw new InvalidJsonException(processingReport, node.asText() + " " + toErrorMessage(processingReport));
         }
@@ -32,7 +32,7 @@ public class JsonSchemaNodeValidatorImpl extends AbstractJsonValidator
     @Override
     public final boolean isValid(final JsonNode value,
                                  final ConstraintValidatorContext context) {
-        ProcessingReport processingReport = isJsonValid(value);
+        ProcessingReport processingReport = this.validationReport(value);
         boolean success = processingReport.isSuccess();
         if (!success) {
             setErrorConstraint(processingReport, context);
